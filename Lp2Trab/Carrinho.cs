@@ -6,7 +6,7 @@ namespace Lp2Trab
 {
     public class Carrinho
     {
-        private Dictionary<Produto, int> _itens;
+         private Dictionary<Produto, int> _itens;
 
         public Dictionary<Produto, int> Itens
         {
@@ -25,7 +25,7 @@ namespace Lp2Trab
                 return somatorio;
             }
         }
-
+ 
         public Carrinho()
         {
             this._itens = new Dictionary<Produto, int>();
