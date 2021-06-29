@@ -4,36 +4,42 @@ using System.Text;
 
 namespace Lp2Trab
 {
-    class Fornecedor
+   public class Fornecedor : IImprimivel
     {
-        private string nome;
-        private string cnpj;
-
+        private string _nome;
+        private string _cnpj;
+        private List<Produto> _item;
         public string Nome
         {
             get
             {
-                return this.nome;
+                return this._nome;
             }
         }
 
-        public string CNPJ
+        public string Cnpj
         {
             get
             {
-                return this.cnpj;
+                return this._cnpj;
             }
         }
-
-        public Fornecedor(string nome, string CNPJ)
+       
+        public Fornecedor(string nome, string tel, string cnpj, List<Produto> produtos)
         {
-            this.nome = nome;
-            this.cnpj = CNPJ;
+            this._nome = nome;
+            this._cnpj = cnpj;
+            this._item = produtos;
         }
         public void Imprimir()
         {
             Console.WriteLine("Nome:\t{0}", this.Nome);
-            Console.WriteLine("CNPJ:\t{0}", this.cnpj);
+            Console.WriteLine("CNPJ:\t{0}", this.Cnpj);
+            foreach (var item in _item)
+            {
+                item.Imprimir();
+                Console.WriteLine("---------------------------");
+            }
         }
     }
 }  
