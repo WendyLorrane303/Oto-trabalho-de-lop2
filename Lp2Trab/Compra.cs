@@ -4,32 +4,44 @@ using System.Text;
 
 namespace Lp2Trab
 {
-    class Compra : Carrinho
+    public class Compra : IImprimivel
     {
-       public List<Carrinho> carrinho;
-
-        public void compra(Carrinho, Estoque)
+        private Cliente cliente;
+        private Carrinho carrinho;
+        public DateTime data;
+        public Cliente Cliente
         {
-            foreach (var items in carrinho)
+            get
             {
-                foreach (var produt in Estoque)
-                {
-                    if (produt._nome== items._nome)
-                    {
-                        int PreçoFinal = items._intens * produt.preco;
-
-                        if (PreçoFinal <=  )
-                        {
-
-                        }
-                }
-
+                return this.cliente;
             }
+        }
 
-
-
-
-
+        public Carrinho Carrinho
+        {
+            get
+            {
+                return this.carrinho;
+            }
+        }
+        public DateTime Data
+        {
+            get
+            {
+                return this.Data;
+            }
+        }
+        public Compra(Cliente cliente, Carrinho carrinho)
+        {
+            this.cliente = cliente;
+            this.carrinho = carrinho;
+            this.data = DateTime.Today;
+        }
+        public void Imprimir()
+        {
+            this.Cliente.Imprimir();
+            Console.WriteLine(this.data.ToString("g"));
+            Console.WriteLine("Total do carrinho:\tR$ {0:0.00}", this.Carrinho.Total);
         }
     }
 }
