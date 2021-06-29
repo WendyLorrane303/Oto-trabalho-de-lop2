@@ -4,74 +4,59 @@ using System.Text;
 
 namespace Lp2Trab
 {
-    class Estoque 
+  public class Estoque : Carrinho
     {
-        private Dictionary<Produto, int> _items;
-
-        public Dictionary<Produto, int> Items
-        {
-            get { return this._items; }
-        }
-
-        
-
-        public Estoque()
-        {
-            this._items = new Dictionary<Produto, int>();
-        }
-
-        public void AdicionarEstoque(Produto items, int quantidade)
-        {
-            this._items = items;
-            this._quantidade = quantidade;
-            Estoque.Add (items, quantidade);
-        }
-
-        public void AdicionarEstoque(Produto items)
-        {
-            this.AdicionarEstoque(items, 1);
-        }
-
-        public double Total2
+        private Dictionary<Produto, int> Obj;
+        public Dictionary<Produto, int> Jbo
         {
             get
             {
-                int quantidadeVendida; 
-                int novaQuantidade = this.estoque[Produto].Value - quantidadeVendida;
-                this.estoque[Produto] = novaQuantidade;
-                return novaQuantidade;
+                return this.Obj;
             }
         }
-
-        public void Adicionar(List<Produto> items)
+        public Estoque(Dictionary<Produto, int> Objetos)
         {
-            foreach (var item in items)
-            {
-                this.Adicionar(items);
-            }
+            this.Obj = Objetos;
         }
-
-        public void AdicionarEstoque(Dictionary<Produto, int> itens)
+        public void Atz_Estoque(Compra compra)
         {
-            foreach (KeyValuePair<Produto, int> PO in itens)
+            int y = 0;
+            foreach (KeyValuePair<Produto, int> PO in compra.Carrinho.Itens)
             {
-                this.AdicionarEstoque(PO.Key, PO.Value);
+                int quantidade = Obj[PO.Key];
+                if (PO.Value > quantidade && y == 0)
+                {
+                    Console.WriteLine("A compra não pode ser finalizada", compra.Cliente.Nome);
+                    y = y + 1;
+                    break;
+                }
             }
-        }
-
-        public void ImprimirEstoque()
-        {
-            Console.WriteLine("======== ESTOQUE==");
-            foreach (KeyValuePair<Produto, int> parOrdenado in this._items)
+            if (y == 0)
             {
-                parOrdenado.Key.Imprimir();
+                foreach (Produto qualquercoisa in compra.Carrinho.Itens.Keys)
+                {
+
+                    if (Obj.ContainsKey(qualquercoisa))
+                    {
+                        this.Obj[qualquercoisa] = this.Obj[qualquercoisa] - compra.Carrinho.Itens[qualquercoisa];
+                    }
+
+                }
+                Console.WriteLine("A compra do cliente {0} foi Realizada", compra.Cliente.Nome);
+            }
+
+
+        }
+        public override void Imprimir()
+        {
+            Console.WriteLine("======== ESTOQUE ========");
+            foreach (KeyValuePair<Produto, int> parOrdenado in this.Obj)
+            {
+                Console.WriteLine("Nome:\t{0}", parOrdenado.Key.Nome);
                 Console.WriteLine("Quantidade:\t{0}", parOrdenado.Value);
                 Console.WriteLine("==========================");
             }
-            Console.WriteLine("Total De Itens No Estoque:/{0}", this.Total2);
-            Console.WriteLine("==========================");
         }
     }
-
 }
 
